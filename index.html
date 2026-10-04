@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="description"
+        content="A premium responsive expense tracker for managing income and expenses."
+    >
+
+    <meta
+        name="theme-color"
+        content="#f5f5f7"
+    >
+
+    <title>Expense Tracker</title>
+
+    <link
+        rel="stylesheet"
+        href="css/style.css"
+    >
+
+    <!-- Chart.js -->
+    <script
+        src="https://cdn.jsdelivr.net/npm/chart.js"
+    ></script>
+
+    <script
+        src="js/script.js"
+        defer
+    ></script>
+</head>
+
+<body>
+
+    <!-- ================= HEADER ================= -->
+
+    <header class="top-header">
+
+        <div class="container header-content">
+
+            <div class="brand">
+
+                <div class="brand-kicker">
+                    PERSONAL FINANCE
+                </div>
+
+                <h1>
+                    Expense Tracker
+                </h1>
+
+                <p>
+                    Manage your money with clarity.
+                </p>
+
+            </div>
+
+            <div class="header-status">
+                <span class="status-dot"></span>
+                Financial Overview
+            </div>
+
+        </div>
+
+    </header>
+
+
+    <!-- ================= MAIN ================= -->
+
+    <main class="container">
+
+
+        <!-- ================= DASHBOARD ================= -->
+
+        <section class="dashboard">
+
+            <article class="summary-card income-card">
+
+                <div class="summary-top">
+
+                    <span class="summary-label">
+                        TOTAL INCOME
+                    </span>
+
+                    <span class="summary-indicator income-indicator"></span>
+
+                </div>
+
+                <p id="total-income">
+                    ₹0.00
+                </p>
+
+                <span class="summary-description">
+                    Money received
+                </span>
+
+            </article>
+
+
+            <article class="summary-card expense-card">
+
+                <div class="summary-top">
+
+                    <span class="summary-label">
+                        TOTAL EXPENSES
+                    </span>
+
+                    <span class="summary-indicator expense-indicator"></span>
+
+                </div>
+
+                <p id="total-expenses">
+                    ₹0.00
+                </p>
+
+                <span class="summary-description">
+                    Money spent
+                </span>
+
+            </article>
+
+
+            <article class="summary-card balance-card">
+
+                <div class="summary-top">
+
+                    <span class="summary-label">
+                        CURRENT BALANCE
+                    </span>
+
+                    <span class="summary-indicator balance-indicator"></span>
+
+                </div>
+
+                <p id="current-balance">
+                    ₹0.00
+                </p>
+
+                <span class="summary-description">
+                    Income minus expenses
+                </span>
+
+            </article>
+
+        </section>
+
+
+        <!-- ================= ADD TRANSACTION ================= -->
+
+        <section class="card transaction-form-card">
+
+            <div class="section-heading">
+
+                <span class="eyebrow">
+                    TRANSACTION
+                </span>
+
+                <h2>
+                    Add Transaction
+                </h2>
+
+                <p>
+                    Enter the details of your income or expense.
+                </p>
+
+            </div>
+
+
+            <form id="transaction-form">
+
+                <div class="form-grid">
+
+
+                    <!-- TYPE -->
+
+                    <div class="form-group">
+
+                        <label for="transaction-type">
+                            Transaction Type
+                        </label>
+
+                        <select id="transaction-type">
+
+                            <option value="income">
+                                Income
+                            </option>
+
+                            <option value="expense">
+                                Expense
+                            </option>
+
+                        </select>
+
+                        <small
+                            id="type-error"
+                            class="error-message"
+                        ></small>
+
+                    </div>
+
+
+                    <!-- AMOUNT -->
+
+                    <div class="form-group">
+
+                        <label for="amount">
+                            Amount
+                        </label>
+
+                        <div class="amount-input">
+
+                            <span>₹</span>
+
+                            <input
+                                type="number"
+                                id="amount"
+                                placeholder="0.00"
+                                min="0"
+                                step="0.01"
+                                inputmode="decimal"
+                            >
+
+                        </div>
+
+                        <small
+                            id="amount-error"
+                            class="error-message"
+                        ></small>
+
+                    </div>
+
+
+                    <!-- CATEGORY -->
+
+                    <div class="form-group">
+
+                        <label for="category">
+                            Category
+                        </label>
+
+                        <input
+                            type="text"
+                            id="category"
+                            placeholder="Food, Rent, Salary..."
+                            autocomplete="off"
+                        >
+
+                        <small
+                            id="category-error"
+                            class="error-message"
+                        ></small>
+
+                    </div>
+
+
+                    <!-- DATE -->
+
+                    <div class="form-group">
+
+                        <label for="date">
+                            Date
+                        </label>
+
+                        <input
+                            type="date"
+                            id="date"
+                        >
+
+                        <small
+                            id="date-error"
+                            class="error-message"
+                        ></small>
+
+                    </div>
+
+
+                    <!-- DESCRIPTION -->
+
+                    <div class="form-group full-width">
+
+                        <label for="description">
+                            Description
+                        </label>
+
+                        <textarea
+                            id="description"
+                            rows="3"
+                            placeholder="Add a short description..."
+                        ></textarea>
+
+                        <small
+                            id="description-error"
+                            class="error-message"
+                        ></small>
+
+                    </div>
+
+                </div>
+
+
+                <div class="form-actions">
+
+                    <button
+                        type="submit"
+                        id="submit-button"
+                        class="primary-button"
+                    >
+                        Add Transaction
+                    </button>
+
+                    <button
+                        type="button"
+                        id="cancel-edit"
+                        class="secondary-button"
+                        hidden
+                    >
+                        Cancel
+                    </button>
+
+                </div>
+
+            </form>
+
+        </section>
+
+
+        <!-- ================= TRANSACTIONS ================= -->
+
+        <section class="card">
+
+            <div class="section-heading">
+
+                <span class="eyebrow">
+                    ACTIVITY
+                </span>
+
+                <h2>
+                    Transactions
+                </h2>
+
+                <p>
+                    Review, edit, delete and filter your transactions.
+                </p>
+
+            </div>
+
+
+            <!-- FILTERS -->
+
+            <div class="filters">
+
+                <div class="filter-group">
+
+                    <label for="type-filter">
+                        Transaction Type
+                    </label>
+
+                    <select id="type-filter">
+
+                        <option value="all">
+                            All Transactions
+                        </option>
+
+                        <option value="income">
+                            Income
+                        </option>
+
+                        <option value="expense">
+                            Expense
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="filter-group">
+
+                    <label for="category-filter">
+                        Category
+                    </label>
+
+                    <select id="category-filter">
+
+                        <option value="all">
+                            All Categories
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <button
+                    type="button"
+                    id="clear-filters"
+                    class="clear-button"
+                >
+                    Clear Filters
+                </button>
+
+            </div>
+
+
+            <div
+                id="transaction-list"
+                class="transaction-list"
+            ></div>
+
+        </section>
+
+
+        <!-- ================= ANALYTICS ================= -->
+
+        <section class="analytics-grid">
+
+
+            <!-- MONTHLY SUMMARY -->
+
+            <article class="card analytics-card">
+
+                <div class="section-heading">
+
+                    <span class="eyebrow">
+                        ANALYTICS
+                    </span>
+
+                    <h2>
+                        Monthly Summary
+                    </h2>
+
+                    <p>
+                        Review your expenses by month and category.
+                    </p>
+
+                </div>
+
+
+                <div class="summary-controls">
+
+                    <label for="summary-month">
+                        Select Month
+                    </label>
+
+                    <input
+                        type="month"
+                        id="summary-month"
+                    >
+
+                </div>
+
+
+                <div class="monthly-total">
+
+                    <div>
+
+                        <span>
+                            Monthly Expenses
+                        </span>
+
+                        <small>
+                            Selected month
+                        </small>
+
+                    </div>
+
+                    <strong id="monthly-total">
+                        ₹0.00
+                    </strong>
+
+                </div>
+
+
+                <div
+                    id="monthly-category-list"
+                    class="monthly-category-list"
+                ></div>
+
+            </article>
+
+
+            <!-- EXPENSE CHART -->
+
+            <article class="card analytics-card">
+
+                <div class="section-heading">
+
+                    <span class="eyebrow">
+                        SPENDING
+                    </span>
+
+                    <h2>
+                        Expense by Category
+                    </h2>
+
+                    <p>
+                        Visual breakdown of your spending.
+                    </p>
+
+                </div>
+
+
+                <div class="chart-container">
+
+                    <canvas id="expense-chart"></canvas>
+
+                    <p
+                        id="chart-empty"
+                        class="chart-empty"
+                    >
+                        Add expenses to view the chart.
+                    </p>
+
+                </div>
+
+            </article>
+
+        </section>
+
+    </main>
+
+
+    <!-- ================= FOOTER ================= -->
+
+    <footer class="footer">
+
+        <div class="container">
+
+            <p>
+                Expense Tracker
+                <span>•</span>
+                Built with HTML, CSS and JavaScript
+            </p>
+
+        </div>
+
+    </footer>
+
+</body>
+
+</html>
